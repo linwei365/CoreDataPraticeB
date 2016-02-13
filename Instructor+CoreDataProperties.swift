@@ -16,5 +16,6 @@ extension Instructor {
 
     @NSManaged var nameLast: String?
     @NSManaged var nameFirst: String?
+    @NSManaged var course: NSSet?
 
 }

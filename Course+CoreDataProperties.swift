@@ -15,5 +15,6 @@ import CoreData
 extension Course {
 
     @NSManaged var title: String?
+    @NSManaged var instructor: Instructor?
 
 }

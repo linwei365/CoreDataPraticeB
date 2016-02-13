@@ -91,9 +91,7 @@ class MainTableViewController: UITableViewController {
             let firstName = alert.textFields![0]
             let lastName = alert.textFields![1]
             let courseTitle = alert.textFields![2]
-            
-            
-            
+         
             self.saveText(firstName.text!, lastName: lastName.text!, courseTitle: courseTitle.text!)
             
             self.tableView.reloadData()
@@ -153,24 +151,24 @@ class MainTableViewController: UITableViewController {
         
         let instructorName =  instructors[indexPath.row]
         
-        cell.textLabel?.text = instructorName.nameFirst! + " " + instructorName.nameLast!
+        cell.textLabel?.text = "Instructor: " + instructorName.nameFirst! + " " + instructorName.nameLast!
         
-        cell.detailTextLabel?.text = courses[indexPath.row].title
+        cell.detailTextLabel?.text = "Course Title: " + courses[indexPath.row].title!
         
 
         return cell
     }
 
 
-    /*
+ 
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
 
-    /*
+
+   
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
@@ -180,7 +178,7 @@ class MainTableViewController: UITableViewController {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+   
 
     /*
     // Override to support rearranging the table view.

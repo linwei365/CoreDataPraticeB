@@ -2,13 +2,15 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15D21" minimumToolsVersion="Automatic">
     <entity name="Course" representedClassName=".Course" syncable="YES">
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="instructor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Instructor" inverseName="course" inverseEntity="Instructor" syncable="YES"/>
     </entity>
     <entity name="Instructor" representedClassName=".Instructor" syncable="YES">
         <attribute name="nameFirst" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="nameLast" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="course" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Course" inverseName="instructor" inverseEntity="Course" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Instructor" positionX="-54" positionY="-9" width="128" height="75"/>
-        <element name="Course" positionX="-36" positionY="18" width="128" height="60"/>
+        <element name="Instructor" positionX="270" positionY="63" width="128" height="90"/>
+        <element name="Course" positionX="-36" positionY="18" width="128" height="75"/>
     </elements>
 </model>
