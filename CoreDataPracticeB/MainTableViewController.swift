@@ -27,6 +27,13 @@ class MainTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+              let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+            let fetchRequest = NSFetchRequest(entityName: "Instructor")
+            let fetchRequestB = NSFetchRequest(entityName: "Course")
+        
+            try! instructors = managedObjectContext.executeFetchRequest(fetchRequest) as! [Instructor]
+        
+            try! courses = managedObjectContext.executeFetchRequest(fetchRequestB) as! [Course]
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,16 +44,39 @@ class MainTableViewController: UITableViewController {
     func saveText(firstName:String, lastName: String, courseTitle: String)  {
         
         let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-        let instructor = NSEntityDescription.insertNewObjectForEntityForName("Instructor", inManagedObjectContext: managedObjectContext)
+        let instructor = NSEntityDescription.insertNewObjectForEntityForName("Instructor", inManagedObjectContext: managedObjectContext) as! Instructor
      
         instructor.setValue(firstName, forKey: "nameFirst")
         instructor.setValue(lastName, forKey: "nameLast")
         
-          let course = NSEntityDescription.insertNewObjectForEntityForName("Course", inManagedObjectContext: managedObjectContext)
+          let course = NSEntityDescription.insertNewObjectForEntityForName("Course", inManagedObjectContext: managedObjectContext) as! Course
         
         course.setValue(courseTitle, forKey: "title")
         
-        try! managedObjectContext.save()
+        //---
+        
+        var error: NSError?
+        
+        do {
+           try managedObjectContext.save()
+            instructors.append(instructor)
+            courses.append(course)
+        }
+        catch let error1 as NSError {
+            
+            error =  error1
+        }
+        
+        if error != nil {
+            
+            print("failed to save")
+        }
+        //----
+       
+        
+       
+ 
+//        try! managedObjectContext.save()
         
         
     }
@@ -65,6 +95,8 @@ class MainTableViewController: UITableViewController {
             
             
             self.saveText(firstName.text!, lastName: lastName.text!, courseTitle: courseTitle.text!)
+            
+            self.tableView.reloadData()
             
         }
         
