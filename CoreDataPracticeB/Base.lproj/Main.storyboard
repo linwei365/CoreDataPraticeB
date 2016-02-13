@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
-        <!--Main Table View Controller-->
+        <!--Instructor-->
         <scene sceneID="VQN-o8-Wtj">
             <objects>
                 <tableViewController id="0J6-Ya-8Wv" customClass="MainTableViewController" customModule="CoreDataPracticeB" customModuleProvider="target" sceneMemberID="viewController">
@@ -21,6 +21,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="GIc-ld-dV0" kind="show" id="bmI-vq-8P5"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -28,11 +31,31 @@
                             <outlet property="delegate" destination="0J6-Ya-8Wv" id="d9y-oU-Jih"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="HCE-c4-TPv"/>
+                    <navigationItem key="navigationItem" title="Instructor" id="HCE-c4-TPv">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="EGW-AT-gS4"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uj7-zI-uTW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1223" y="349"/>
+            <point key="canvasLocation" x="1075" y="349"/>
+        </scene>
+        <!--Second View Controller-->
+        <scene sceneID="3xA-Gg-DXL">
+            <objects>
+                <viewController id="GIc-ld-dV0" customClass="SecondViewController" customModule="CoreDataPracticeB" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ud5-bi-vKS"/>
+                        <viewControllerLayoutGuide type="bottom" id="mfq-k8-3co"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6hY-mI-JWc">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aIt-tT-xNd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1755" y="349"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="wzK-8v-Qzc">
