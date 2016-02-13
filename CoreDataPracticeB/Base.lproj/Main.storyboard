@@ -38,7 +38,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="GIc-ld-dV0" kind="show" id="bmI-vq-8P5"/>
+                                    <segue destination="GIc-ld-dV0" kind="show" identifier="data" id="bmI-vq-8P5"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

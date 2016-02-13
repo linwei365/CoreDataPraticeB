@@ -27,15 +27,31 @@ class MainTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-                managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-            let fetchRequest = NSFetchRequest(entityName: "Instructor")
-            let fetchRequestB = NSFetchRequest(entityName: "Course")
         
-            try! instructors = managedObjectContext!.executeFetchRequest(fetchRequest) as! [Instructor]
+        loadData()
         
-            try! courses = managedObjectContext!.executeFetchRequest(fetchRequestB) as! [Course]
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.tableView.reloadData()
+    }
+    
+//    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//        self.performSegueWithIdentifier("data", sender: nil);
+//    }
 
+    func loadData () {
+        managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+        let fetchRequest = NSFetchRequest(entityName: "Instructor")
+        let fetchRequestB = NSFetchRequest(entityName: "Course")
+        
+        try! instructors = managedObjectContext!.executeFetchRequest(fetchRequest) as! [Instructor]
+        
+        try! courses = managedObjectContext!.executeFetchRequest(fetchRequestB) as! [Course]
+        
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
