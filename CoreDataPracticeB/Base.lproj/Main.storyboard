@@ -95,8 +95,8 @@
                                 <rect key="frame" x="161" y="319" width="34" height="30"/>
                                 <state key="normal" title="Save"/>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Course Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1h8-Ig-6Hq">
-                                <rect key="frame" x="25" y="263" width="105" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Course Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1h8-Ig-6Hq">
+                                <rect key="frame" x="37" y="263" width="93" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -119,6 +119,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="courseTitleTextField" destination="obb-sy-UqB" id="y4b-69-VVD"/>
+                        <outlet property="firstNameTextField" destination="5QK-WZ-9bE" id="m5v-V8-1yE"/>
+                        <outlet property="lastNameTextField" destination="7PF-BR-WJM" id="hrc-9K-RYF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aIt-tT-xNd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
