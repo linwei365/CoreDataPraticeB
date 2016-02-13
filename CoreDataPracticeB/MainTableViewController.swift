@@ -13,7 +13,7 @@ import CoreData
 
 class MainTableViewController: UITableViewController {
 
-    //step 2 array of moc which [Instructor]
+    //step 2 array of managedObject which [Instructor]
     
     var instructors = [Instructor]()
     var courses = [Course]()
@@ -34,6 +34,47 @@ class MainTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func addButtonOnClick(sender: UIBarButtonItem) {
+        
+        let alert  =  UIAlertController(title: "Add Instructor", message: "New Instructor Name", preferredStyle: UIAlertControllerStyle.Alert)
+     
+        let addAction =  UIAlertAction(title: "add", style: UIAlertActionStyle.Default) { (action:UIAlertAction) -> Void in
+            
+        }
+        
+        let cancelAction =  UIAlertAction(title: "cancel", style: UIAlertActionStyle.Cancel) { (action:UIAlertAction) -> Void in
+            
+        }
+        
+        alert.addTextFieldWithConfigurationHandler { (firstName:UITextField) -> Void in
+            
+            firstName.placeholder = "First Name"
+            
+            
+        }
+        alert.addTextFieldWithConfigurationHandler { (lastName:UITextField) -> Void in
+            
+            lastName.placeholder = "Last Name"
+            
+            
+        }
+        alert.addTextFieldWithConfigurationHandler { (courseTitle:UITextField) -> Void in
+            
+            courseTitle.placeholder = "Course Title"
+            
+            
+        }
+        
+        alert.addAction(addAction)
+        alert.addAction(cancelAction)
+        
+        
+        
+        presentViewController(alert, animated: true, completion: nil)
+        
+        
+        
+    }
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {

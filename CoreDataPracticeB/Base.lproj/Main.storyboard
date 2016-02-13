@@ -32,7 +32,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Instructor" id="HCE-c4-TPv">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="EGW-AT-gS4"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="EGW-AT-gS4">
+                            <connections>
+                                <action selector="addButtonOnClick:" destination="0J6-Ya-8Wv" id="Q1b-yq-NCS"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uj7-zI-uTW" userLabel="First Responder" sceneMemberID="firstResponder"/>
