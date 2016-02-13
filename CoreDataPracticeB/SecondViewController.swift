@@ -19,10 +19,14 @@ class SecondViewController: UIViewController {
     @IBOutlet weak var lastNameTextField: UITextField!
     
     @IBOutlet weak var courseTitleTextField: UITextField!
+    @IBOutlet weak var cancel: UIButton!
+    
     var moc: NSManagedObjectContext!
     
     
+    @IBOutlet weak var edit: UIButton!
     
+    @IBOutlet weak var save: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,6 +38,9 @@ class SecondViewController: UIViewController {
         courseTitleTextField.text = courses[indexRow!].title
         
         
+        save.enabled = false
+        cancel.enabled = false
+        edit.enabled = true
         
         
     }
@@ -55,6 +62,31 @@ class SecondViewController: UIViewController {
     }
     
 
+    @IBAction func cancelOnClick(sender: UIButton) {
+        
+        save.enabled = false
+        cancel.enabled = false
+        edit.enabled = true
+        
+    }
+    
+    @IBAction func saveOnClick(sender: UIButton) {
+        save.enabled = false
+        cancel.enabled = false
+        edit.enabled = true
+        
+        
+    }
+    
+    @IBAction func editOnClick(sender: UIButton) {
+        
+        save.enabled = true
+        cancel.enabled = true
+        edit.enabled = false
+        
+    }
+    
+    
     /*
     // MARK: - Navigation
 

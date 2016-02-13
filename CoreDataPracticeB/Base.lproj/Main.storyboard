@@ -74,6 +74,9 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vLv-Rz-GYn">
                                 <rect key="frame" x="260" y="319" width="30" height="30"/>
                                 <state key="normal" title="Edit"/>
+                                <connections>
+                                    <action selector="editOnClick:" destination="GIc-ld-dV0" eventType="touchUpInside" id="tM9-4B-vYA"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5QK-WZ-9bE">
                                 <rect key="frame" x="161" y="174" width="129" height="30"/>
@@ -94,6 +97,9 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r7p-ou-Vca">
                                 <rect key="frame" x="161" y="319" width="34" height="30"/>
                                 <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="saveOnClick:" destination="GIc-ld-dV0" eventType="touchUpInside" id="Dlm-wZ-cba"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Course Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1h8-Ig-6Hq">
                                 <rect key="frame" x="37" y="263" width="93" height="21"/>
@@ -115,14 +121,20 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LfE-MA-Jvo">
                                 <rect key="frame" x="82" y="319" width="48" height="30"/>
                                 <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelOnClick:" destination="GIc-ld-dV0" eventType="touchUpInside" id="ULN-14-7C3"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="cancel" destination="LfE-MA-Jvo" id="ffw-5U-SwZ"/>
                         <outlet property="courseTitleTextField" destination="obb-sy-UqB" id="y4b-69-VVD"/>
+                        <outlet property="edit" destination="vLv-Rz-GYn" id="ViK-lb-b9h"/>
                         <outlet property="firstNameTextField" destination="5QK-WZ-9bE" id="m5v-V8-1yE"/>
                         <outlet property="lastNameTextField" destination="7PF-BR-WJM" id="hrc-9K-RYF"/>
+                        <outlet property="save" destination="r7p-ou-Vca" id="UbH-wk-VZC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aIt-tT-xNd" userLabel="First Responder" sceneMemberID="firstResponder"/>
