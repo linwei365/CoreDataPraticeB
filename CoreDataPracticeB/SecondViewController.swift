@@ -71,6 +71,18 @@ class SecondViewController: UIViewController {
     }
     
     @IBAction func saveOnClick(sender: UIButton) {
+        
+        
+        
+        instructors[indexRow!].nameFirst = firstNameTextField.text
+        instructors[indexRow!].nameLast =  lastNameTextField.text
+        
+    
+        courses [indexRow!].title = courseTitleTextField.text
+        
+        
+        try! moc.save()
+        
         save.enabled = false
         cancel.enabled = false
         edit.enabled = true
