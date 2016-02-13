@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		658088271C6F8167001CC814 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658088261C6F8167001CC814 /* AppDelegate.swift */; };
-		658088291C6F8167001CC814 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658088281C6F8167001CC814 /* ViewController.swift */; };
 		6580882C1C6F8167001CC814 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6580882A1C6F8167001CC814 /* Main.storyboard */; };
 		6580882F1C6F8167001CC814 /* CoreDataPracticeB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6580882D1C6F8167001CC814 /* CoreDataPracticeB.xcdatamodeld */; };
 		658088311C6F8167001CC814 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 658088301C6F8167001CC814 /* Assets.xcassets */; };
 		658088341C6F8167001CC814 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 658088321C6F8167001CC814 /* LaunchScreen.storyboard */; };
 		6580883F1C6F8168001CC814 /* CoreDataPracticeBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580883E1C6F8168001CC814 /* CoreDataPracticeBTests.swift */; };
 		6580884A1C6F8168001CC814 /* CoreDataPracticeBUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658088491C6F8168001CC814 /* CoreDataPracticeBUITests.swift */; };
+		658088581C6F81DD001CC814 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658088571C6F81DD001CC814 /* MainTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +37,6 @@
 /* Begin PBXFileReference section */
 		658088231C6F8167001CC814 /* CoreDataPracticeB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataPracticeB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		658088261C6F8167001CC814 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		658088281C6F8167001CC814 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6580882B1C6F8167001CC814 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6580882E1C6F8167001CC814 /* CoreDataPracticeB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataPracticeB.xcdatamodel; sourceTree = "<group>"; };
 		658088301C6F8167001CC814 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -49,6 +48,7 @@
 		658088451C6F8168001CC814 /* CoreDataPracticeBUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreDataPracticeBUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		658088491C6F8168001CC814 /* CoreDataPracticeBUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPracticeBUITests.swift; sourceTree = "<group>"; };
 		6580884B1C6F8168001CC814 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		658088571C6F81DD001CC814 /* MainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,8 +100,8 @@
 			isa = PBXGroup;
 			children = (
 				658088261C6F8167001CC814 /* AppDelegate.swift */,
-				658088281C6F8167001CC814 /* ViewController.swift */,
 				6580882A1C6F8167001CC814 /* Main.storyboard */,
+				658088571C6F81DD001CC814 /* MainTableViewController.swift */,
 				658088301C6F8167001CC814 /* Assets.xcassets */,
 				658088321C6F8167001CC814 /* LaunchScreen.storyboard */,
 				658088351C6F8167001CC814 /* Info.plist */,
@@ -260,7 +260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6580882F1C6F8167001CC814 /* CoreDataPracticeB.xcdatamodeld in Sources */,
-				658088291C6F8167001CC814 /* ViewController.swift in Sources */,
+				658088581C6F81DD001CC814 /* MainTableViewController.swift in Sources */,
 				658088271C6F8167001CC814 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
