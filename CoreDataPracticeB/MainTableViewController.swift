@@ -17,7 +17,7 @@ class MainTableViewController: UITableViewController {
     
     var instructors = [Instructor]()
     var courses = [Course]()
-    
+    var managedObjectContext: NSManagedObjectContext?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,13 +27,13 @@ class MainTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-              let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+                managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
             let fetchRequest = NSFetchRequest(entityName: "Instructor")
             let fetchRequestB = NSFetchRequest(entityName: "Course")
         
-            try! instructors = managedObjectContext.executeFetchRequest(fetchRequest) as! [Instructor]
+            try! instructors = managedObjectContext!.executeFetchRequest(fetchRequest) as! [Instructor]
         
-            try! courses = managedObjectContext.executeFetchRequest(fetchRequestB) as! [Course]
+            try! courses = managedObjectContext!.executeFetchRequest(fetchRequestB) as! [Course]
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,13 +43,13 @@ class MainTableViewController: UITableViewController {
     
     func saveText(firstName:String, lastName: String, courseTitle: String)  {
         
-        let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-        let instructor = NSEntityDescription.insertNewObjectForEntityForName("Instructor", inManagedObjectContext: managedObjectContext) as! Instructor
+          managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+        let instructor = NSEntityDescription.insertNewObjectForEntityForName("Instructor", inManagedObjectContext: managedObjectContext!) as! Instructor
      
         instructor.setValue(firstName, forKey: "nameFirst")
         instructor.setValue(lastName, forKey: "nameLast")
         
-          let course = NSEntityDescription.insertNewObjectForEntityForName("Course", inManagedObjectContext: managedObjectContext) as! Course
+          let course = NSEntityDescription.insertNewObjectForEntityForName("Course", inManagedObjectContext: managedObjectContext!) as! Course
         
         course.setValue(courseTitle, forKey: "title")
         
@@ -58,7 +58,7 @@ class MainTableViewController: UITableViewController {
         var error: NSError?
         
         do {
-           try managedObjectContext.save()
+           try managedObjectContext!.save()
             instructors.append(instructor)
             courses.append(course)
         }
@@ -172,6 +172,17 @@ class MainTableViewController: UITableViewController {
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
+            
+            
+            let instructor = instructors[indexPath.row]
+            let course = courses[indexPath.row]
+            managedObjectContext?.deleteObject(instructor)
+            managedObjectContext?.deleteObject(course)
+            
+            instructors.removeAtIndex(indexPath.row)
+            courses.removeAtIndex(indexPath.row)
+            
+            try! managedObjectContext?.save()
             // Delete the row from the data source
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
