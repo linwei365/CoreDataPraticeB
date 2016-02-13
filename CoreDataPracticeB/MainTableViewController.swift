@@ -7,9 +7,18 @@
 //
 
 import UIKit
+// step 1 import
+import CoreData
+
 
 class MainTableViewController: UITableViewController {
 
+    //step 2 array of moc which [Instructor]
+    
+    var instructors = [Instructor]()
+    var courses = [Course]()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,7 +43,7 @@ class MainTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        return instructors.count
     }
 
     
@@ -42,6 +51,13 @@ class MainTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
 
         // Configure the cell...
+        
+        let instructorName =  instructors[indexPath.row]
+        
+        cell.textLabel?.text = instructorName.nameFirst! + " " + instructorName.nameLast!
+        
+        cell.detailTextLabel?.text = courses[indexPath.row].title
+        
 
         return cell
     }
