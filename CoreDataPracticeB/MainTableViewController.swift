@@ -33,12 +33,38 @@ class MainTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func saveText(firstName:String, lastName: String, courseTitle: String)  {
+        
+        let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+        let instructor = NSEntityDescription.insertNewObjectForEntityForName("Instructor", inManagedObjectContext: managedObjectContext)
+     
+        instructor.setValue(firstName, forKey: "nameFirst")
+        instructor.setValue(lastName, forKey: "nameLast")
+        
+          let course = NSEntityDescription.insertNewObjectForEntityForName("Course", inManagedObjectContext: managedObjectContext)
+        
+        course.setValue(courseTitle, forKey: "title")
+        
+        try! managedObjectContext.save()
+        
+        
+    }
+    
 
     @IBAction func addButtonOnClick(sender: UIBarButtonItem) {
         
         let alert  =  UIAlertController(title: "Add Instructor", message: "New Instructor Name", preferredStyle: UIAlertControllerStyle.Alert)
      
         let addAction =  UIAlertAction(title: "add", style: UIAlertActionStyle.Default) { (action:UIAlertAction) -> Void in
+            
+            let firstName = alert.textFields![0]
+            let lastName = alert.textFields![1]
+            let courseTitle = alert.textFields![2]
+            
+            
+            
+            self.saveText(firstName.text!, lastName: lastName.text!, courseTitle: courseTitle.text!)
             
         }
         
