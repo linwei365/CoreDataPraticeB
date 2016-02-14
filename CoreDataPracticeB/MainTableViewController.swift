@@ -13,8 +13,7 @@ import CoreData
 
 class MainTableViewController: UITableViewController,UISearchBarDelegate {
 
-    var data = ["San Francisco","New York","San Jose","Chicago","Los Angeles","Austin","Seattle"]
-
+ 
     //step 2 array of managedObject which [Instructor]
     
     var instructors = [Instructor]()
@@ -23,6 +22,8 @@ class MainTableViewController: UITableViewController,UISearchBarDelegate {
     
     
     //search bar
+    @IBOutlet weak var searchBar: UISearchBar!
+    
       var searchActive : Bool = false
     var filteredInstructors:[Instructor] = []
     var filteredCourses:[Course] = []
@@ -270,7 +271,7 @@ class MainTableViewController: UITableViewController,UISearchBarDelegate {
         
         
         
-        if(searchActive){
+        if(searchActive && searchBar.text != "" ){
             cell.detailTextLabel?.text = "Course Title: " + filteredCourses[indexPath.row].title!
  
         } else {
