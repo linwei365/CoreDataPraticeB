@@ -33,6 +33,7 @@ class SecondViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         loadData()
+        
         firstNameTextField.text = instructors[indexRow!].nameFirst
         lastNameTextField.text = instructors[indexRow!].nameLast
         courseTitleTextField.text = courses[indexRow!].title

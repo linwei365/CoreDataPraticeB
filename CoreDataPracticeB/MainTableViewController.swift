@@ -50,7 +50,7 @@ class MainTableViewController: UITableViewController,UISearchBarDelegate {
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         
         
-//        let fetchRequest = NSFetchRequest(entityName: "Instructor")
+//       let fetchRequest = NSFetchRequest(entityName: "Instructor")
      
           let fetchRequestB = NSFetchRequest(entityName: "Course")
         let predicateB = NSPredicate(format: "title LIKE[c]'\(searchText)*'" )
@@ -58,7 +58,7 @@ class MainTableViewController: UITableViewController,UISearchBarDelegate {
        fetchRequestB.predicate = predicateB
         
         
-//        try! instructors = managedObjectContext!.executeFetchRequest(fetchRequest) as! [Instructor]
+//         try! filteredInstructors = managedObjectContext!.executeFetchRequest(fetchRequest) as! [Instructor]
         
         try! filteredCourses = managedObjectContext!.executeFetchRequest(fetchRequestB) as! [Course]
         
@@ -267,7 +267,7 @@ class MainTableViewController: UITableViewController,UISearchBarDelegate {
         
         cell.textLabel?.text = "Instructor: " + instructorName.nameFirst! + " " + instructorName.nameLast!
         
-        cell.detailTextLabel?.text = "Course Title: " + courses[indexPath.row].title!
+//        cell.detailTextLabel?.text = "Course Title: " + courses[indexPath.row].title!
         
         
         
@@ -339,23 +339,35 @@ class MainTableViewController: UITableViewController,UISearchBarDelegate {
         // Pass the selected object to the new view controller.
         let index = self.tableView.indexPathForSelectedRow
         
+        let vc =  segue.destinationViewController as! SecondViewController
+        
+        vc.indexRow = index?.row
+        
 //        var selectedItem:[Course]
-//        if (self.searchActive ) {
-//            selectedItem = filteredCourses
-//        } else {
-//            selectedItem = courses
-//        }
+        if (self.searchActive && self.searchBar.text != "" ) {
+            vc.courses = filteredCourses
+       
+         vc.moc = managedObjectContext
+        }
+        
+        else {
+            
+            
+//            vc.courses = courses
+//            vc.instructors = instructors
+            
+            
+            
+            
+          vc.moc = managedObjectContext
+        }
         
         
         //-------------
         
        
-        
-        let vc =  segue.destinationViewController as! SecondViewController
-        
-        vc.indexRow = index?.row
-        
-        vc.moc = managedObjectContext
+
+    
         
         
     }
