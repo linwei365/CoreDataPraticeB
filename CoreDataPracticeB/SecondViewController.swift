@@ -38,12 +38,43 @@ class SecondViewController: UIViewController {
         courseTitleTextField.text = courses[indexRow!].title
         
         
-        save.enabled = false
-        cancel.enabled = false
-        edit.enabled = true
+      
+        disableText()
         
         
     }
+    
+    func disableText () {
+        save.enabled = false
+        save.hidden = true
+        
+        cancel.enabled = false
+        cancel.hidden = true
+        edit.enabled = true
+        edit.hidden = false
+    
+        firstNameTextField.enabled = false
+        lastNameTextField.enabled = false
+        courseTitleTextField.enabled = false
+    
+    }
+    
+    func enableText () {
+        save.enabled = true
+        save.hidden = false
+        
+        cancel.enabled = true
+        cancel.hidden = false
+        edit.enabled = false
+        edit.hidden = true
+        
+        firstNameTextField.enabled = true
+        lastNameTextField.enabled = true
+        courseTitleTextField.enabled = true
+        
+        
+    }
+    
     
     func loadData () {
      
@@ -64,10 +95,8 @@ class SecondViewController: UIViewController {
 
     @IBAction func cancelOnClick(sender: UIButton) {
         
-        save.enabled = false
-        cancel.enabled = false
-        edit.enabled = true
-        
+   disableText()
+   
     }
     
     @IBAction func saveOnClick(sender: UIButton) {
@@ -83,18 +112,15 @@ class SecondViewController: UIViewController {
         
         try! moc.save()
         
-        save.enabled = false
-        cancel.enabled = false
-        edit.enabled = true
+   disableText()
+        
         
         
     }
     
     @IBAction func editOnClick(sender: UIButton) {
         
-        save.enabled = true
-        cancel.enabled = true
-        edit.enabled = false
+     enableText()
         
     }
     
