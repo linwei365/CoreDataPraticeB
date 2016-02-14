@@ -11,13 +11,73 @@ import UIKit
 import CoreData
 
 
-class MainTableViewController: UITableViewController {
+class MainTableViewController: UITableViewController,UISearchBarDelegate {
+
+    var data = ["San Francisco","New York","San Jose","Chicago","Los Angeles","Austin","Seattle"]
 
     //step 2 array of managedObject which [Instructor]
     
     var instructors = [Instructor]()
     var courses = [Course]()
     var managedObjectContext: NSManagedObjectContext?
+    
+    
+    //search bar
+      var searchActive : Bool = false
+    var filteredInstructors:[Instructor] = []
+    var filteredCourses:[Course] = []
+    
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        searchActive = true;
+    }
+    
+    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
+    
+    
+    // searchbar delegate
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        
+//        let fetchRequest = NSFetchRequest(entityName: "Instructor")
+     
+          let fetchRequestB = NSFetchRequest(entityName: "Course")
+        let predicateB = NSPredicate(format: "title LIKE[c]'\(searchText)*'" )
+       
+       fetchRequestB.predicate = predicateB
+        
+        
+//        try! instructors = managedObjectContext!.executeFetchRequest(fetchRequest) as! [Instructor]
+        
+        try! filteredCourses = managedObjectContext!.executeFetchRequest(fetchRequestB) as! [Course]
+        
+        
+        
+        
+//        filtered = data.filter({ (text) -> Bool in
+//            let tmp: NSString = text
+//            let range = tmp.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
+//            return range.location != NSNotFound
+//        })
+        
+        if(filteredCourses.count == 0){
+            searchActive = false;
+        } else {
+            searchActive = true;
+        }
+        self.tableView.reloadData()
+    }
+ 
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +92,10 @@ class MainTableViewController: UITableViewController {
         
     }
     
+    
+    
+    
+    
     override func viewWillAppear(animated: Bool) {
         self.tableView.reloadData()
     }
@@ -42,8 +106,32 @@ class MainTableViewController: UITableViewController {
 
     func loadData () {
         managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+        
+        
         let fetchRequest = NSFetchRequest(entityName: "Instructor")
         let fetchRequestB = NSFetchRequest(entityName: "Course")
+      
+
+        
+        try! instructors = managedObjectContext!.executeFetchRequest(fetchRequest) as! [Instructor]
+        
+        try! courses = managedObjectContext!.executeFetchRequest(fetchRequestB) as! [Course]
+        
+    }
+    
+    
+    
+    
+    func searchName (course:String) {
+        
+        
+        let fetchRequest = NSFetchRequest(entityName: "Instructor")
+        let fetchRequestB = NSFetchRequest(entityName: "Course")
+        
+        let predicateB = NSPredicate(format: "title LIKE[c]'\(course)*'" )
+        
+        fetchRequestB.predicate = predicateB
+        
         
         try! instructors = managedObjectContext!.executeFetchRequest(fetchRequest) as! [Instructor]
         
@@ -56,6 +144,9 @@ class MainTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+    // save text function
     
     func saveText(firstName:String, lastName: String, courseTitle: String)  {
         
@@ -156,7 +247,13 @@ class MainTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
+        
+        
+        if(searchActive) {
+            return filteredCourses.count
+        }
         return instructors.count
+        
     }
 
     
@@ -170,6 +267,16 @@ class MainTableViewController: UITableViewController {
         cell.textLabel?.text = "Instructor: " + instructorName.nameFirst! + " " + instructorName.nameLast!
         
         cell.detailTextLabel?.text = "Course Title: " + courses[indexPath.row].title!
+        
+        
+        
+        if(searchActive){
+            cell.detailTextLabel?.text = "Course Title: " + filteredCourses[indexPath.row].title!
+ 
+        } else {
+            cell.detailTextLabel?.text = "Course Title: " + courses[indexPath.row].title!
+        }
+        
         
 
         return cell
@@ -229,10 +336,19 @@ class MainTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        let index = self.tableView.indexPathForSelectedRow
+        
+//        var selectedItem:[Course]
+//        if (self.searchActive ) {
+//            selectedItem = filteredCourses
+//        } else {
+//            selectedItem = courses
+//        }
+        
+        
+        //-------------
         
        
-        
-       let index = self.tableView.indexPathForSelectedRow
         
         let vc =  segue.destinationViewController as! SecondViewController
         
