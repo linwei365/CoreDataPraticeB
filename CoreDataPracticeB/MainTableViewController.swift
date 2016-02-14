@@ -202,6 +202,7 @@ class MainTableViewController: UITableViewController,UISearchBarDelegate {
          
             self.saveText(firstName.text!, lastName: lastName.text!, courseTitle: courseTitle.text!)
             
+            self.searchActive = false
             self.tableView.reloadData()
             
         }
