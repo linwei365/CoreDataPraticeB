@@ -11,15 +11,19 @@ import UIKit
 import CoreData
 
 
-class MainTableViewController: UITableViewController,UISearchBarDelegate {
+class MainTableViewController: UITableViewController,UISearchBarDelegate, SecondViewControllerDelegate {
 
- 
+ var vc = SecondViewController ()
+    
     //step 2 array of managedObject which [Instructor]
     
     var instructors = [Instructor]()
     var courses = [Course]()
     var managedObjectContext: NSManagedObjectContext?
+    //fixing error 
+    var searchText:String = ""
     
+    //fetchResultController implementation
     var fetchResultController = NSFetchedResultsController ()
     
     //search bar
@@ -45,16 +49,25 @@ class MainTableViewController: UITableViewController,UISearchBarDelegate {
         searchActive = false;
     }
     
-    
+    //calling delegate
+    func setTextTooFalse() {
+
+        self.searchBar.text = ""
+        searchActive = false
+        
+    }
     
     // searchbar delegate
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        //fixing error
+        self.searchText = searchText
         
         
 //       let fetchRequest = NSFetchRequest(entityName: "Instructor")
      
           let fetchRequestB = NSFetchRequest(entityName: "Course")
-        let predicateB = NSPredicate(format: "title LIKE[c]'\(searchText)*'" )
+        let predicateB = NSPredicate(format: "title LIKE[c]'\(self.searchText)*'" )
        
        fetchRequestB.predicate = predicateB
         
@@ -89,6 +102,8 @@ class MainTableViewController: UITableViewController,UISearchBarDelegate {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.searchBar.text = ""
+        searchActive = false
         
         loadData()
         
@@ -99,6 +114,10 @@ class MainTableViewController: UITableViewController,UISearchBarDelegate {
     
     
     override func viewWillAppear(animated: Bool) {
+        self.searchBar.text = ""
+        searchActive = false
+        
+        vc.delegate = self
         self.tableView.reloadData()
     }
     
@@ -107,17 +126,60 @@ class MainTableViewController: UITableViewController,UISearchBarDelegate {
 //    }
 
     func loadData () {
-        managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
         
         
-        let fetchRequest = NSFetchRequest(entityName: "Instructor")
-        let fetchRequestB = NSFetchRequest(entityName: "Course")
-      
-
+        if(searchActive && searchBar.text != "" ){
         
-        try! instructors = managedObjectContext!.executeFetchRequest(fetchRequest) as! [Instructor]
+            let fetchRequest = NSFetchRequest(entityName: "Instructor")
+            let fetchRequestB = NSFetchRequest(entityName: "Course")
+            
+            
+            let predicateB = NSPredicate(format: "title LIKE[c]'\(self.searchText)*'" )
+            
+            fetchRequest.predicate = predicateB
+            fetchRequestB.predicate = predicateB
+            
+            
+            
+            try! filteredInstructors = managedObjectContext!.executeFetchRequest(fetchRequest) as! [Instructor]
+            
+            try! filteredCourses = managedObjectContext!.executeFetchRequest(fetchRequestB) as! [Course]
+            
+            
+            
+            
+            //        filtered = data.filter({ (text) -> Bool in
+            //            let tmp: NSString = text
+            //            let range = tmp.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
+            //            return range.location != NSNotFound
+            //        })
+            
+            if(filteredCourses.count == 0){
+                searchActive = false;
+            } else {
+                searchActive = true;
+            }
+            
+            
+            
+            
+            
         
-        try! courses = managedObjectContext!.executeFetchRequest(fetchRequestB) as! [Course]
+        } else {
+            
+            
+            managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+            
+            
+            let fetchRequest = NSFetchRequest(entityName: "Instructor")
+            let fetchRequestB = NSFetchRequest(entityName: "Course")
+            
+            
+            try! instructors = managedObjectContext!.executeFetchRequest(fetchRequest) as! [Instructor]
+            
+            try! courses = managedObjectContext!.executeFetchRequest(fetchRequestB) as! [Course]
+        }
+     
         
     }
     
@@ -265,18 +327,26 @@ class MainTableViewController: UITableViewController,UISearchBarDelegate {
 
         // Configure the cell...
         
-        let instructorName =  instructors[indexPath.row]
+       
         
-        cell.textLabel?.text = "Instructor: " + instructorName.nameFirst! + " " + instructorName.nameLast!
+//       cell.detailTextLabel?.text = "Course Title: " + courses[indexPath.row].title!
         
-//        cell.detailTextLabel?.text = "Course Title: " + courses[indexPath.row].title!
+          let instructorName =  instructors[indexPath.row]
         
-        
-        
+
         if(searchActive && searchBar.text != "" ){
+//            let instructorName =  filteredInstructors[indexPath.row]
+            
+            cell.textLabel?.text = "Instructor: " + instructorName.nameFirst! + " " + instructorName.nameLast!
+        
             cell.detailTextLabel?.text = "Course Title: " + filteredCourses[indexPath.row].title!
  
         } else {
+            
+          
+            
+            cell.textLabel?.text = "Instructor: " + instructorName.nameFirst! + " " + instructorName.nameLast!
+            
             cell.detailTextLabel?.text = "Course Title: " + courses[indexPath.row].title!
         }
         
@@ -341,31 +411,20 @@ class MainTableViewController: UITableViewController,UISearchBarDelegate {
         // Pass the selected object to the new view controller.
         let index = self.tableView.indexPathForSelectedRow
         
-        let vc =  segue.destinationViewController as! SecondViewController
+         vc =  segue.destinationViewController as! SecondViewController
         
         vc.indexRow = index?.row
         
-//        var selectedItem:[Course]
-        if (self.searchActive && self.searchBar.text != "" ) {
-            vc.courses = filteredCourses
-       
-            //needs something to be send when filtering the data moc doesn't do it  still need fix this problem
-         vc.moc = managedObjectContext
-            
-            
-        }
+        vc.moc = managedObjectContext
         
-        else {
-            
-            
-//            vc.courses = courses
-//            vc.instructors = instructors
-            
-            
-            
-            
-          vc.moc = managedObjectContext
-        }
+        vc.searchActive = self.searchActive
+        
+        vc.searchText = self.searchBar.text!
+        
+        vc.delegate = self
+        
+//        var selectedItem:[Course]
+
         
         
         //-------------

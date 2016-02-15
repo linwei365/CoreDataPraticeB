@@ -8,11 +8,25 @@
 
 import UIKit
 import CoreData
+
+protocol SecondViewControllerDelegate {
+    
+    func setTextTooFalse()
+    
+}
+
 class SecondViewController: UIViewController {
 
+    var delegate:SecondViewControllerDelegate? = nil
+    
+    
     var indexRow: Int?
     var instructors = [Instructor]()
     var courses = [Course]()
+    
+    var searchActive = false
+    var searchText:String = ""
+    var filteredCourses = [Course]()
     
     @IBOutlet weak var firstNameTextField: UITextField!
     
@@ -34,9 +48,7 @@ class SecondViewController: UIViewController {
         
         loadData()
         
-        firstNameTextField.text = instructors[indexRow!].nameFirst
-        lastNameTextField.text = instructors[indexRow!].nameLast
-        courseTitleTextField.text = courses[indexRow!].title
+       
         
         
       
@@ -76,9 +88,53 @@ class SecondViewController: UIViewController {
         
     }
     
+    override func showViewController(vc: UIViewController, sender: AnyObject?) {
+                self.delegate?.setTextTooFalse()
+    }
     
     func loadData () {
      
+        if (self.searchActive && self.searchText != "" ) {
+            
+            
+            //needs something to be send when filtering the data moc doesn't do it  still need fix this problem
+            
+            //       let fetchRequest = NSFetchRequest(entityName: "Instructor")
+            
+            let fetchRequestB = NSFetchRequest(entityName: "Course")
+            let predicateB = NSPredicate(format: "title LIKE[c]'\(self.searchText)*'" )
+            
+            fetchRequestB.predicate = predicateB
+            
+            
+            //         try! filteredInstructors = managedObjectContext!.executeFetchRequest(fetchRequest) as! [Instructor]
+            
+            try! filteredCourses = moc!.executeFetchRequest(fetchRequestB) as! [Course]
+            
+//            firstNameTextField.text = instructors[indexRow!].nameFirst
+//            lastNameTextField.text = instructors[indexRow!].nameLast
+            courseTitleTextField.text = filteredCourses[indexRow!].title
+            
+    
+          
+            
+            if(filteredCourses.count == 0){
+                searchActive = false;
+                  self.searchText = ""
+            } else {
+                
+                searchActive = true;
+            }
+            
+        }
+            
+        else {
+            
+            
+            //            vc.courses = courses
+            //            vc.instructors = instructors
+            
+       
         
         let fetchRequest = NSFetchRequest(entityName: "Instructor")
         let fetchRequestB = NSFetchRequest(entityName: "Course")
@@ -86,8 +142,60 @@ class SecondViewController: UIViewController {
         try! instructors = moc!.executeFetchRequest(fetchRequest) as! [Instructor]
         
         try! courses = moc!.executeFetchRequest(fetchRequestB) as! [Course]
+            
+            firstNameTextField.text = instructors[indexRow!].nameFirst
+            lastNameTextField.text = instructors[indexRow!].nameLast
+            courseTitleTextField.text = courses[indexRow!].title
+        }
     }
 
+    
+    
+    
+    func saveData (){
+        
+        if (self.searchActive && self.searchText != "" ) {
+        
+        
+            filteredCourses [indexRow!].title = courseTitleTextField.text
+            
+            
+            try! moc.save()
+            
+            
+            searchActive = false;
+            self.searchText = ""
+            
+//            if(filteredCourses.count == 0){
+//                searchActive = false;
+//            } else {
+//                searchActive = true;
+//            }
+//            
+            disableText()
+            
+        }
+        
+        else {
+            
+            
+            
+//            instructors[indexRow!].nameFirst = firstNameTextField.text
+//            instructors[indexRow!].nameLast =  lastNameTextField.text
+            
+            
+            courses [indexRow!].title = courseTitleTextField.text
+            
+            
+            try! moc.save()
+            
+            disableText()
+            
+        }
+        
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -102,18 +210,11 @@ class SecondViewController: UIViewController {
     
     @IBAction func saveOnClick(sender: UIButton) {
         
+        self.delegate?.setTextTooFalse()
         
+        navigationController!.popViewControllerAnimated(true)
         
-        instructors[indexRow!].nameFirst = firstNameTextField.text
-        instructors[indexRow!].nameLast =  lastNameTextField.text
-        
-    
-        courses [indexRow!].title = courseTitleTextField.text
-        
-        
-        try! moc.save()
-        
-   disableText()
+    saveData()
         
         
         
