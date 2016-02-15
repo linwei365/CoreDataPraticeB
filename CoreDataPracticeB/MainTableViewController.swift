@@ -348,7 +348,10 @@ class MainTableViewController: UITableViewController,UISearchBarDelegate {
         if (self.searchActive && self.searchBar.text != "" ) {
             vc.courses = filteredCourses
        
+            //needs something to be send when filtering the data moc doesn't do it  still need fix this problem
          vc.moc = managedObjectContext
+            
+            
         }
         
         else {
