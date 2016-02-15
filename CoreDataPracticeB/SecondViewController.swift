@@ -48,9 +48,7 @@ class SecondViewController: UIViewController {
         
         loadData()
         
-       
-        
-        
+  
       
         disableText()
         
@@ -88,9 +86,9 @@ class SecondViewController: UIViewController {
         
     }
     
-    override func showViewController(vc: UIViewController, sender: AnyObject?) {
-                self.delegate?.setTextTooFalse()
-    }
+//    override func showViewController(vc: UIViewController, sender: AnyObject?) {
+//                self.delegate?.setTextTooFalse()
+//    }
     
     func loadData () {
      
