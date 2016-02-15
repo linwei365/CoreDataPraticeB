@@ -20,6 +20,7 @@ class MainTableViewController: UITableViewController,UISearchBarDelegate {
     var courses = [Course]()
     var managedObjectContext: NSManagedObjectContext?
     
+    var fetchResultController = NSFetchedResultsController ()
     
     //search bar
     @IBOutlet weak var searchBar: UISearchBar!
