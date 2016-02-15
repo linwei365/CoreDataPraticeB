@@ -229,9 +229,11 @@ class MainTableViewController: UITableViewController,UISearchBarDelegate, Second
         var error: NSError?
         
         do {
-           try managedObjectContext!.save()
             instructors.append(instructor)
             courses.append(course)
+            course.instructor = instructor
+           try managedObjectContext!.save()
+           
         }
         catch let error1 as NSError {
             
@@ -331,21 +333,23 @@ class MainTableViewController: UITableViewController,UISearchBarDelegate, Second
         
 //       cell.detailTextLabel?.text = "Course Title: " + courses[indexPath.row].title!
         
-          let instructorName =  instructors[indexPath.row]
+//          let instructorName =  instructors[indexPath.row]
         
 
         if(searchActive && searchBar.text != "" ){
 //            let instructorName =  filteredInstructors[indexPath.row]
             
-            cell.textLabel?.text = "Instructor: " + instructorName.nameFirst! + " " + instructorName.nameLast!
+            cell.textLabel?.text = "Instructor: " + filteredCourses[indexPath.row].instructor!.nameFirst! + " " + filteredCourses[indexPath.row].instructor!.nameLast!
         
             cell.detailTextLabel?.text = "Course Title: " + filteredCourses[indexPath.row].title!
+            
+            
  
         } else {
             
-          
+           
             
-            cell.textLabel?.text = "Instructor: " + instructorName.nameFirst! + " " + instructorName.nameLast!
+            cell.textLabel?.text = "Instructor: " + (courses[indexPath.row].instructor?.nameFirst)! + " " + (courses[indexPath.row].instructor?.nameLast)!
             
             cell.detailTextLabel?.text = "Course Title: " + courses[indexPath.row].title!
         }

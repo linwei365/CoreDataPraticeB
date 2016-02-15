@@ -111,8 +111,8 @@ class SecondViewController: UIViewController {
             
             try! filteredCourses = moc!.executeFetchRequest(fetchRequestB) as! [Course]
             
-//            firstNameTextField.text = instructors[indexRow!].nameFirst
-//            lastNameTextField.text = instructors[indexRow!].nameLast
+            firstNameTextField.text = filteredCourses[indexRow!].instructor!.nameFirst
+            lastNameTextField.text = filteredCourses[indexRow!].instructor!.nameLast
             courseTitleTextField.text = filteredCourses[indexRow!].title
             
     
@@ -143,8 +143,8 @@ class SecondViewController: UIViewController {
         
         try! courses = moc!.executeFetchRequest(fetchRequestB) as! [Course]
             
-            firstNameTextField.text = instructors[indexRow!].nameFirst
-            lastNameTextField.text = instructors[indexRow!].nameLast
+            firstNameTextField.text = courses[indexRow!].instructor!.nameFirst
+            lastNameTextField.text = courses[indexRow!].instructor!.nameLast
             courseTitleTextField.text = courses[indexRow!].title
         }
     }
@@ -156,8 +156,11 @@ class SecondViewController: UIViewController {
         
         if (self.searchActive && self.searchText != "" ) {
         
-        
-            filteredCourses [indexRow!].title = courseTitleTextField.text
+            
+            filteredCourses[indexRow!].instructor!.nameFirst = firstNameTextField.text
+            filteredCourses[indexRow!].instructor!.nameLast =  lastNameTextField.text
+            
+            filteredCourses[indexRow!].title = courseTitleTextField.text
             
             
             try! moc.save()
@@ -180,8 +183,8 @@ class SecondViewController: UIViewController {
             
             
             
-//            instructors[indexRow!].nameFirst = firstNameTextField.text
-//            instructors[indexRow!].nameLast =  lastNameTextField.text
+            courses[indexRow!].instructor!.nameFirst = firstNameTextField.text
+           courses[indexRow!].instructor!.nameLast =  lastNameTextField.text
             
             
             courses [indexRow!].title = courseTitleTextField.text
@@ -210,9 +213,9 @@ class SecondViewController: UIViewController {
     
     @IBAction func saveOnClick(sender: UIButton) {
         
-        self.delegate?.setTextTooFalse()
+       // self.delegate?.setTextTooFalse()
         
-        navigationController!.popViewControllerAnimated(true)
+       // navigationController!.popViewControllerAnimated(true)
         
     saveData()
         
